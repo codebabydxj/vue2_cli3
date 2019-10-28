@@ -1,2 +1,139 @@
-# vue_cli3
-vue-cli3 + vuex + router + element + axios
+# vue-cli3 （脚手架）
+
+- node.js (8.9.0以上)
+
+- vue create project-name
+
+- 选择手动配置
+
+## Project setup
+```
+npm install
+```
+
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Run your tests
+```
+npm run test
+```
+
+### Lints and fixes files
+```
+npm run lint
+```
+
+### Run your unit tests
+```
+npm run test:unit
+```
+
+### 代码规范
+
+- js代码规范：[airbnb/javascript](https://github.com/airbnb/javascript)([中文版]-https://github.com/yuche/javascript)
+
+-html/css代码规范：[mdo/code-guide](https://codeguide.co/)([中文版]-https://codeguide.bootcss.com/)
+
+-文件命名规范：使用英文命名文件夹以及文件（不可使用中文！）,命名方式为kebab-case的形式（小写字母，单词以中划线连接，如：get-user-info）
+
+### 接口规范
+
+- http request(请求)
+
+  1. 请求头设置
+    `Content-Type:application/json;charset=UTF-8`(请求体数据为json字符串)
+    `Content-Type:application/x-www-form-urlencoded;charset=UTF-8`(请求体数据为表单formData)
+    `Content-Type:multipart/form-data;charset=UTF-8`(文件上传)
+  2. 请求体内键名统一使用驼峰命名
+
+- http response(响应)
+
+  1. 响应头设置`Content-Type:application/json`,使响应数据位JSON字符串
+  2. 响应体包含三部分：code、result、msg，功能如下
+
+    |---|---|---|
+    |code|integer|响应码，用于判断状态|
+    |result|JSON对象|请求成功时需要返回的数据信息|
+    |msg|string|请求出错时的错误信息|
+
+    成功或错误时返回结果如下：
+
+    ```json
+    {
+      "code": 200,
+      "result": {},
+      "msg": null,
+    }
+    ```
+
+    ```json
+    {
+      "code": 401,
+      "result": null,
+      "msg": "用户未登录",
+    }
+    ```
+
+
+### 代码注释说明
+
+- 组件里面注释一般使用单行注释//,关键的方法和作用要注释说明一下
+
+  ```js
+  setUserInfo() {
+    // 保存用户信息
+  }
+  ```
+
+- 依赖js和包管理一般采用多行js，封装时写明如何使用
+
+- 注释大于代码，越详细越好
+
+
+### 项目以来第三方框架/库
+
+- 项目基本框架@vue
+
+- 前端路由框架@vue-router
+
+- 状态管理器@vuex
+
+- 基本样式组件@element-ui
+
+- css初始化与浏览器一致性库@normalize.css
+
+- ajax请求@axios
+
+- 事件对象操作库@moment
+
+- 图标库@font-awesome
+
+
+### git开发流程：
+
+- origin/develop：开发分支
+
+- origin/master：部署分支
+
+- origin/feature/***：新功能开发特性分支
+
+- origin/alpha：测试发布分支
+
+
+### 参考资料
+
+- [vue文档](https://vuejs.org/)
+
+- [vue-router文档](https://router.vuejs.org/)
+
+- [vuex文档](https://vuex.vuejs.org/)
+
+- [vue文档](https://element.eleme.io/#/zh-CN)
