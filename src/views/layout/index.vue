@@ -1,32 +1,33 @@
 <template>
   <div class="app">
-    <content-interface>
-      <el-button type="text" size="mini" @click="page(true)">page1</el-button>
+    <menu-bar></menu-bar>
+    <content-interface class="el_content" :isCollapse="isCollapse">
+      <com-header>
+
+      </com-header>
       <router-view></router-view>
     </content-interface>
   </div>
 </template>
 
 <script>
+import menuBar from '@/components/menu-bar';
 import contentInterface from '@/components/content-interface';
+import comHeader from '@/components/com-header';
 
 export default {
   components: {
+    menuBar,
     contentInterface,
+    comHeader,
   },
   data() {
     return {
-
+      isCollapse: true,
     };
   },
   methods: {
-    page(bool) {
-      if (bool) {
-        this.$router.push({ path: '/page1-1' });
-      } else {
-        this.$router.push({ path: '/page2-1' });
-      }
-    },
+
   },
 };
 </script>
@@ -39,5 +40,9 @@ export default {
   /* 隐藏的表格 不需要border */
   .el-table--border .is-hidden {
     border: 0 !important;
+  }
+  .el_content {
+    height: 100%;
+    overflow: auto;
   }
 </style>
