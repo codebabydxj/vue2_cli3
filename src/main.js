@@ -13,6 +13,10 @@ import 'font-awesome/css/font-awesome.min.css';
 // 样式初始化
 import 'normalize.css';
 
+// 请求插件和路由插件
+import http from '@/utils/plugin/http';
+import nav from '@/utils/plugin/nav';
+
 // 全局组件
 import flexGrowRow from '@/components/flex-grow-row';
 
@@ -21,6 +25,8 @@ import autoHeight from '@/utils/v-directive/auto-height';
 
 Vue.config.productionTip = false;
 Vue.use(ElementUI);
+Vue.use(http);
+Vue.use(nav, { store });
 
 Vue.component('flex-grow-row', flexGrowRow);
 

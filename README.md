@@ -59,6 +59,7 @@ npm run test:unit
   1. 响应头设置`Content-Type:application/json`,使响应数据位JSON字符串
   2. 响应体包含三部分：code、result、msg，功能如下
 
+    |参数名称|类型|描述|
     |---|---|---|
     |code|integer|响应码，用于判断状态|
     |result|JSON对象|请求成功时需要返回的数据信息|

@@ -11,7 +11,7 @@
           </el-button>
         </el-tooltip>
         <el-tooltip effect="dark" content="全屏" placement="bottom">
-          <el-button class="screenfull" type="text" @click="screenfullShow">
+          <el-button class="screenfull" type="text" @click="screenfullTog">
             <i class="fa fa-arrows-alt fa-lg"></i>
           </el-button>
         </el-tooltip>
@@ -33,6 +33,8 @@
 import { mapState } from 'vuex';
 import screenfull from 'screenfull';
 
+// import * as API from '@/utils/constants/api';
+
 export default {
   data() {
     return {
@@ -46,10 +48,10 @@ export default {
   },
   methods: {
     refresh() {
-      // this.$refreshView();
+      this.$refreshView();
     },
-    screenfullShow() {
-      if (screenfull.enabled) {
+    screenfullTog() {
+      if (screenfull.isEnabled) {
         screenfull.toggle();
       } else {
         this.$message({
@@ -60,10 +62,22 @@ export default {
       }
     },
     handleCommand(command) {
+      // 退出登录
       if (command === 'logout') {
+        // const loading = this.$loading({ lock: true });
+        // this.$http.get(API.loginOut)
+        // .then(() => {
+        //   this.$store.commit('logout');
+        //   this.$router.replace('/login');
+        // }).catch(() => {
+        // }).finally(() => {
+        //   loading.close();
+        // });
         this.$store.commit('logout');
         this.$router.replace('/login');
       }
+      // 个人中心
+      // 设置中心
     },
   },
 };

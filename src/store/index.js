@@ -29,6 +29,23 @@ export default new Vuex.Store({
     setCurrentRoute(state, rootPath) {
       state.currentRoute = rootPath;
     },
+    addRoute(state, route) {
+      state.routes.push(route);
+    },
+    updateRoute(state, { index, route }) {
+      Object.keys(state.routes[index]).forEach((key) => {
+        if (route[key]) {
+          state.routes[index][key] = route[key];
+        }
+      });
+    },
+    delRoute(state, { index, count = 1, item }) {
+      if (item) {
+        state.routes.splice(index, count, item);
+      } else {
+        state.routes.splice(index, count);
+      }
+    },
     setConsts(state, consts) {
       state.consts = consts;
     },
