@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <menu-bar></menu-bar>
+    <menu-bar :isCollapse="isCollapse"></menu-bar>
     <content-interface class="el_content" :isCollapse="isCollapse">
       <com-header>
 

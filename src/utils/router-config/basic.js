@@ -7,14 +7,16 @@ export default {
   classify: 'basic',
   key: 'basic',
   title: '基本内容',
-  icon: '',
-  access: false,
+  icon: 's-home',
+  access: true,
   routes: [
     {
       path: '/welcome',
       key: 'welcome',
-      access: false,
-      meta: {},
+      access: true,
+      meta: {
+        permission: {},
+      },
       title: '欢迎使用',
       component: view,
       children: [

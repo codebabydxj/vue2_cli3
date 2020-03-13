@@ -109,6 +109,7 @@ header .navbar-top .user-info .screenfull {
   margin: 0 15px 0 0;
   padding: 0;
   color: inherit;
+  cursor: pointer;
 }
 .user_name {
   max-width: 90px;

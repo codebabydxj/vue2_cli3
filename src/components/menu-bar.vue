@@ -1,60 +1,90 @@
 <template>
   <nav class="navbar-side">
     <div class="collapse-warp">
-      <el-switch active-color="#878D99" inactive-color="#878D99" v-model="isCollapse"></el-switch>
+      <el-switch active-color="#878D99" inactive-color="#878D99" v-model="isCurCollapse"></el-switch>
     </div>
-    <h4 v-if="!isCollapse" style="textAlign: center; color: #fff">后台管理系统</h4>
+    <h4 v-if="isCurCollapse" style="textAlign: center; color: #fff">后台管理系统</h4>
     <el-menu
-      default-active="1-4-1"
+      ref="menu"
       class="el-menu-vertical-demo"
-      background-color="#545c64"
-      text-color="#fff"
-      active-text-color="#ffd04b"
-      :collapse="isCollapse"
+      background-color="#2d2f33"
+      text-color="#f5f7fa"
+      active-text-color="#eb9e05"
+      :unique-opened="true"
+      :collapse="!isCurCollapse"
       @open="handleOpen"
-      @close="handleClose">
-      <el-submenu index="1">
+      @close="handleClose"
+      :default-active="currentRoute.split('?')[0] === '/' ? '/welcome' : currentRoute.split('?')[0]">
+      <el-submenu
+        v-for="routeWrap in routerConfigFilterd"
+        :index="routeWrap.classify"
+        :key="routeWrap.classify">
         <template slot="title">
-          <i class="el-icon-location"></i>
-          <span slot="title">导航一</span>
+          <i :class="`el-icon-${routeWrap.icon}`"></i>
+          <span slot="title">{{ routeWrap.title }}</span>
         </template>
-        <el-menu-item-group>
-          <span slot="title">分组一</span>
-          <el-menu-item index="1-1">选项1</el-menu-item>
-          <el-menu-item index="1-2">选项2</el-menu-item>
-        </el-menu-item-group>
-        <el-menu-item-group title="分组2">
-          <el-menu-item index="1-3">选项3</el-menu-item>
-        </el-menu-item-group>
-        <el-submenu index="1-4">
-          <span slot="title">选项4</span>
-          <el-menu-item index="1-4-1">选项1</el-menu-item>
-        </el-submenu>
+        <el-menu-item
+          v-for="route in routeWrap.routes"
+          :index="route.path"
+          :key="route.path.split('?')[0]"
+          @click="routeGo(route.title, route.path)">
+          {{ route.title }}
+        </el-menu-item>
       </el-submenu>
-      <el-menu-item index="2">
-        <i class="el-icon-menu"></i>
-        <span slot="title">导航二</span>
-      </el-menu-item>
-      <el-menu-item index="3" disabled>
-        <i class="el-icon-document"></i>
-        <span slot="title">导航三</span>
-      </el-menu-item>
-      <el-menu-item index="4">
-        <i class="el-icon-setting"></i>
-        <span slot="title">导航四</span>
-      </el-menu-item>
     </el-menu>
   </nav>
 </template>
 
 <script>
+import { cloneDeep } from 'lodash';
+import { mapState } from 'vuex';
+
 export default {
+  props: {
+    isCollapse: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     return {
-      isCollapse: true,
+      isCurCollapse: this.isCollapse,
     };
   },
+  computed: {
+    ...mapState({
+      routes: state => state.routes,
+      currentRoute: state => state.currentRoute,
+      routerConfig: (state) => {
+        // 过滤没有权限的路由
+        const routerConfig = state.routerConfig.filter(v => v.access); // 过滤一级,默认router-config中access设置为false
+        routerConfig.forEach((level) => {
+          level.routes = level.routes.filter(item => level.access && item.access); // 过滤二级
+        });
+        // 根据sort排序
+        routerConfig.sort((x, y) => x.sort - y.sort); // 一级菜单排序
+        routerConfig.forEach((level) => {
+          level.routes.sort((x, y) => x.sort - y.sort); // 二级菜单排序
+        });
+        return routerConfig;
+      },
+    }),
+    routerConfigFilterd() {
+      const routerConfigFilterd = this.routerConfig.map((routeWrap) => {
+        const routerWrapDeepClone = cloneDeep(routeWrap);
+        return routerWrapDeepClone;
+      });
+      return routerConfigFilterd.filter(item => item.routes.length);
+    },
+  },
+  created() {
+    console.log(this.currentRoute.split('?')[0]);
+  },
   methods: {
+    routeGo(title, route) {
+      if (route === this.currentRoute) return;
+      this.$openView(route);
+    },
     handleOpen(key, keyPath) {
       console.log(key, keyPath);
     },
@@ -65,12 +95,29 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 nav.navbar-side {
   flex: 0 0 auto;
-  background-color: #545c64;
+  background-color: #2d2f33;
   overflow-x: hidden;
   overflow-y: auto;
+}
+nav.navbar-side .el-menu>.el-submenu>.el-submenu__title {
+  background-color: #2d2f33!important;
+}
+nav.navbar-side .el-menu>.el-submenu>.el-submenu__title:hover {
+  color: #eb9e05!important;
+}
+nav.navbar-side .el-menu>.el-submenu.is-opened>.el-submenu__title,
+nav.navbar-side .el-menu>.el-submenu.is-opened>.el-menu,
+nav.navbar-side .el-menu>.el-submenu.is-opened>.el-menu>.el-menu-item {
+  background-color: #5a5e66!important;
+}
+nav.navbar-side .el-menu>.el-submenu>.el-menu>.el-menu-item {
+  padding: 0 50px!important;
+}
+nav.navbar-side .el-menu>.el-submenu.is-opened>.el-menu>.el-menu-item:hover {
+  color: #eb9e05!important;
 }
 .collapse-warp {
   text-align: center;
@@ -81,7 +128,7 @@ nav.navbar-side {
   width: 200px;
   min-height: 400px;
 }
-.el-menu {
+nav.navbar-side .el-menu {
   border-right: none;
 }
 </style>
