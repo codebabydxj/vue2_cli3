@@ -12,5 +12,6 @@ export default {
 @import '@/assets/base-styles/element-variables.scss';
 .el_h3 {
   color: $--color-primary;
+  margin: 20px auto;
 }
 </style>

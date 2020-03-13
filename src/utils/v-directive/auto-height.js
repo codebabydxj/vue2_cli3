@@ -11,7 +11,6 @@
 export default {
   componentUpdated(el, binding, vNode) {
     const ctx = vNode.context;
-    console.log(ctx);
     if (!ctx || typeof ctx[binding.arg] === 'undefined' || ctx.autoHeightResizeListener) return;
 
     ctx.autoHeightResizeListener = () => {
