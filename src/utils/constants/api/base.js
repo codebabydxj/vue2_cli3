@@ -10,8 +10,13 @@ function getBaseUrl(envStr) {
 
 export const baseUrl = getBaseUrl(env);
 // fromData 提交需要携带的参数
-export const fromDataConfig = {
+export const formDataConfig = {
   header: {
     'Content-Type': 'application/x-www-form-urlencoded',
+  },
+};
+export const uploadConfig = {
+  header: {
+    'Content-Type': 'multipart/form-data',
   },
 };
