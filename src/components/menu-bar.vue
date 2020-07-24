@@ -1,9 +1,16 @@
 <template>
   <nav class="navbar-side">
-    <div class="collapse-warp">
+    <div class="collapse-wrap">
       <el-switch active-color="#878D99" inactive-color="#878D99" v-model="isCurCollapse"></el-switch>
     </div>
     <h4 v-if="isCurCollapse" style="textAlign: center; color: #fff">后台管理系统</h4>
+    <div class="search-wrap" :class="{'search-wrap-active': isCurCollapse}">
+      <input class="search-input" placeholder="请输入关键词" name="searchInput" autocomplete="off" v-model="searchInput">
+      <i class="fa fa-lg fa-search search-icon"></i>
+    </div>
+    <div class="search-btn" v-if="!isCurCollapse" @click="searchTog">
+      <i class="fa fa-lg fa-search"></i>
+    </div>
     <el-menu
       ref="menu"
       class="el-menu-vertical-demo"
@@ -12,13 +19,12 @@
       active-text-color="#eb9e05"
       :unique-opened="true"
       :collapse="!isCurCollapse"
-      @open="handleOpen"
-      @close="handleClose"
       :default-active="currentRoute.split('?')[0] === '/' ? '/welcome' : currentRoute.split('?')[0]">
       <el-submenu
         v-for="routeWrap in routerConfigFilterd"
         :index="routeWrap.classify"
-        :key="routeWrap.classify">
+        :key="routeWrap.classify"
+        @click.native="ubfold(routeWrap.classify)">
         <template slot="title">
           <i :class="`el-icon-${routeWrap.icon}`"></i>
           <span slot="title">{{ routeWrap.title }}</span>
@@ -49,6 +55,7 @@ export default {
   data() {
     return {
       isCurCollapse: this.isCollapse,
+      searchInput: '',
     };
   },
   computed: {
@@ -72,24 +79,34 @@ export default {
     routerConfigFilterd() {
       const routerConfigFilterd = this.routerConfig.map((routeWrap) => {
         const routerWrapDeepClone = cloneDeep(routeWrap);
+        const reg = new RegExp(this.searchInput, 'i');
+        // 匹配子菜单
+        routerWrapDeepClone.routes = routeWrap.routes.filter(route => reg.test(route.title));
         return routerWrapDeepClone;
       });
       return routerConfigFilterd.filter(item => item.routes.length);
     },
   },
-  created() {
-    console.log(this.currentRoute.split('?')[0]);
+  watch: {
+    isCurCollapse() {
+      this.$emit('isCurCollapseChange', this.isCurCollapse);
+    },
   },
   methods: {
     routeGo(title, route) {
       if (route === this.currentRoute) return;
       this.$openView(route);
     },
-    handleOpen(key, keyPath) {
-      console.log(key, keyPath);
+    ubfold(classify) {
+      if (!this.isCurCollapse) {
+        this.isCurCollapse = true;
+        setTimeout(() => {
+          this.$ref.menu.open(classify);
+        }, 1000);
+      }
     },
-    handleClose(key, keyPath) {
-      console.log(key, keyPath);
+    searchTog() {
+      this.isCurCollapse = true;
     },
   },
 };
@@ -119,7 +136,67 @@ nav.navbar-side .el-menu>.el-submenu>.el-menu>.el-menu-item {
 nav.navbar-side .el-menu>.el-submenu.is-opened>.el-menu>.el-menu-item:hover {
   color: #eb9e05!important;
 }
-.collapse-warp {
+nav.navbar-side .el-menu>.el-submenu.is-opened>.el-menu>.el-menu-item.is-active::after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 0px;
+  height: 0px;
+  border-right: 8px solid #fff;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  right: 0;
+  top: 18px;
+}
+nav.navbar-side .search-wrap {
+  transition: all 0.7s;
+  width: 0;
+  height: 0;
+  margin: 0;
+  border-bottom: 1px solid #878d99;
+  overflow: hidden;
+}
+nav.navbar-side .search-wrap .search-input {
+  width: 135px;
+  color: #edf2fc;
+  font-size: 14px;
+  background-color: transparent;
+  padding: 0 30px0 5px;
+  border: none;
+  outline: none;
+}
+nav.navbar-side .search-wrap .search-input::-webkit-input-placeholder {
+  color: #878d99;
+}
+nav.navbar-side .search-wrap .search-input::-moz-placeholder {
+  color: #878d99;
+}
+nav.navbar-side .search-wrap .search-input::-ms-input-placeholder {
+  color: #878d99;
+}
+nav.navbar-side .search-wrap .search-icon {
+  color: #878d99;
+  float: right;
+  margin-right: 8px;
+  margin-top: 5px;
+}
+nav.navbar-side .search-wrap.search-wrap-active {
+  width: 170px;
+  height: 28px;
+  margin: 15px;
+  line-height: 28px;
+}
+nav.navbar-side .search-btn {
+  height: 56px;
+  cursor: pointer;
+  line-height: 56px;
+  transition: background-color .3s,color .3s;
+}
+nav.navbar-side .search-btn i {
+  color: #878d99;
+  padding-left: 22px;
+}
+.collapse-wrap {
   text-align: center;
   padding: 5px 0;
   margin-top: 10px;

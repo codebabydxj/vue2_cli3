@@ -21,4 +21,5 @@ module.exports = {
       config.devtool = 'cheap-module-eval-source-map';
     }
   },
+  transpileDependencies: [],
 };

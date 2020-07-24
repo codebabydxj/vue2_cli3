@@ -20,6 +20,11 @@ http.interceptors.request.use((config) => {
   if (config.headers['Content-Type'] === 'application/x-www-form-urlencoded') {
     config.data = qs.stringify(config.data);
   }
+  // 看token是否需要前端传给后台，需要则打开
+  /** let token = window.localStorage.getItem("TOKEN");
+  if (token) {
+    config.headers.TOKEN = token; // 将token放到请求头发送给服务器
+  } */
   return config;
 }, err => Promise.reject(err));
 

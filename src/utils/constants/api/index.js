@@ -5,3 +5,4 @@
  */
 
 export * from './base'; // API基础服务
+export * from './auth';
