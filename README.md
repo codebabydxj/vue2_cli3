@@ -137,4 +137,4 @@ npm run test:unit
 
 - [vuex文档](https://vuex.vuejs.org/)
 
-- [vue文档](https://element.eleme.io/#/zh-CN)
+- [element文档](https://element.eleme.io/#/zh-CN)

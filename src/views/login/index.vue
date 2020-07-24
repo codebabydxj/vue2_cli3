@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import * as API from '@/utils/constants/api';
+// import * as API from '@/utils/constants/api';
 import Cookies from '@/utils/storage/cookies';
 import env from '@/utils/config/env';
 import des from '@/utils/string-handle/des-encrypt';
@@ -86,24 +86,70 @@ export default {
   mounted() {
     this.handleValiCode();
     // 判断是否记住密码
-    const accountInfo = Cookies.get(`${env}.remember.login`);
-    console.log(accountInfo);
-    if (accountInfo) {
-      this.searchForm.username = accountInfo.username;
-      this.searchForm.password = des(`${accountInfo.username}`);
+    const username = Cookies.get(`${env}.remember.login`); // 后台会在登录之后set一些key，我们直接取值解析
+    if (username) {
+      this.searchForm.username = username;
+      this.searchForm.password = des(username);
       this.searchForm.isRemember = true;
     }
   },
   methods: {
     handleValiCode() {
-      this.valiCodeImg = `${API.baseUrl}${API.authCheckCode}?${Math.random()}`;
+      // this.valiCodeImg = `${API.baseUrl}${API.authCheckCode}?${Math.random()}`;
     },
     submitForm() {
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
-          this.$router.replace('/');
+          this.beforeLogin();
         }
       });
+    },
+    beforeLogin() {
+      this.loading = true;
+      if (this.validateIsRememberLogin()) {
+        this.loginRemember();
+      } else {
+        this.login();
+      }
+    },
+    validateIsRememberLogin() {
+      let isRememberLogin = false;
+      const pwd = des(this.searchForm.username);
+      if (pwd === this.searchForm.password) {
+        isRememberLogin = true;
+      }
+      return isRememberLogin;
+    },
+    loginRemember() {
+      this.$router.replace('/');
+      // const params = {
+      //   checkCode: this.searchForm.checkCode,
+      //   isRemember: this.searchForm.isRemember,
+      // };
+      // this.$http.post(API.rememberLogin, params, API.formDataConfig)
+      //   .then(() => {
+      //     this.$router.replace('/');
+      //   }).catch(() => {
+      //     this.handleValiCode();
+      //   }).finally(() => {
+      //     this.loading = false;
+      //   });
+    },
+    login() {
+      if (this.searchForm.isRemember) {
+        Cookies.set(`${env}.remember.login`, '123', {});
+      } // 测试
+      this.$router.replace('/');
+      // const params = { ...this.searchForm };
+      // params.password = des(params.password);
+      // this.$http.post(API.login, params, API.formDataConfig)
+      //   .then(() => {
+      //     this.$router.replace('/');
+      //   }).catch(() => {
+      //     this.handleValiCode();
+      //   }).finally(() => {
+      //     this.loading = false;
+      //   });
     },
     resetForm() {
       this.searchForm.username = '';
