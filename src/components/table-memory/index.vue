@@ -34,6 +34,7 @@ export default {
   data() {
     return {
       dialogTableMemoryShow: false,
+      titleListClone: [],
     };
   },
   created() {
@@ -43,6 +44,7 @@ export default {
       _localStorage.set(this.tableTitle, compatibleTitleList);
       this.$emit('title-change', compatibleTitleList);
     }
+    this.titleListClone = this.tableTitle;
   },
   methods: {
     show() {

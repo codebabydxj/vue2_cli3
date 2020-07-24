@@ -28,6 +28,18 @@ MyNav.install = function(Vue, options) {
   const { state, commit } = store;
   routerConfig = state.routerConfig;
 
+  Vue.prototype.$initNav = function() {
+    const rootPath = this.$route.fullPath.match(/^\/[a-zA-Z0-9\_\-]*/)[0];
+    if (rootPath === state.currentRoute) return;
+    const route = {
+      title: getTitleByPath(rootPath),
+      route: rootPath,
+      realPath: this.$route.fullPath,
+    };
+    commit('setCurrentRoute', rootPath);
+    commit('addRoute', route);
+  }
+
   // 打开页面
   Vue.prototype.$openView = function(path, needBackPath = false) {
     // 需要指定返回路径的情况，将返回的路径拼接到参数中
