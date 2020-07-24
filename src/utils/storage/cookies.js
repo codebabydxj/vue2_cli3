@@ -25,7 +25,6 @@ var factory = function (window) {
   };
 
   Cookies.get = function (key) {
-    console.log(key, Cookies._cachedDocumentCookie, Cookies._document.cookie)
     if (Cookies._cachedDocumentCookie !== Cookies._document.cookie) {
       Cookies._renewCache();
     }
