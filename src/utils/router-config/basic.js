@@ -6,7 +6,7 @@ import empty from '@/views/layout/basic/welcome/empty';
 export default {
   classify: 'basic',
   key: 'basic',
-  title: '基本内容',
+  title: '基本概况',
   icon: 's-home',
   access: true,
   routes: [
