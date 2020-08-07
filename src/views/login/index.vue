@@ -95,7 +95,7 @@ export default {
   },
   methods: {
     handleValiCode() {
-      // this.valiCodeImg = `${API.baseUrl}${API.authCheckCode}?${Math.random()}`;
+      // this.valiCodeImg = `${API.baseUrl}${API.authCheckCode}?${Math.random()}`; // 生成的url + 随机数，防止缓存
     },
     submitForm() {
       this.$refs.loginForm.validate((valid) => {

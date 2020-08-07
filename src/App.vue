@@ -41,7 +41,13 @@ body,
   height: 100%;
   margin: 0;
 }
-
+#app .el-table th {
+  background: #e6ebf5 !important;
+  color: #444444 !important;
+}
+#app .el-table td {
+  color: #000 !important;
+}
 body .el-button.el-button--text {
   user-select: text;
 }

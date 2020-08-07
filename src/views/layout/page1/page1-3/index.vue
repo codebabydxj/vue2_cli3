@@ -79,20 +79,19 @@
                 <span>很抱歉，查询不到内容，建议你检查搜索条件。</span>
               </div>
             </div>
-            <el-table-column width="55" align="center" label="选择">
-              <template slot-scope="scope">
-                <el-radio v-model="selectTableData" :label="scope.row">{{''}}</el-radio>
+            <el-table-column width="55" align="center" type="selection"></el-table-column>
+            <el-table-column prop="date" align="center" label="日期" v-if="titleListLocal.some(i => i.title === '日期' && i.status)"></el-table-column>
+            <el-table-column prop="name" align="center" label="姓名" v-if="titleListLocal.some(i => i.title === '姓名' && i.status)"></el-table-column>
+            <el-table-column prop="province" align="center" label="省份" v-if="titleListLocal.some(i => i.title === '省份' && i.status)"></el-table-column>
+            <el-table-column prop="city" align="center" label="市区" v-if="titleListLocal.some(i => i.title === '市区' && i.status)"></el-table-column>
+            <el-table-column prop="address" align="center" label="地址" v-if="titleListLocal.some(i => i.title === '地址' && i.status)"></el-table-column>
+            <el-table-column prop="zip" align="center" label="邮编" v-if="titleListLocal.some(i => i.title === '邮编' && i.status)"></el-table-column>
+            <el-table-column fixed="right" align="center" label="操作" v-if="titleListLocal.some(i => i.title === '操作' && i.status)">
+              <template>
+                <el-button type="text" size="mini">查看</el-button>
+                <el-button type="text" size="mini">编辑</el-button>
               </template>
             </el-table-column>
-            <el-table-column prop="cs1" align="center" label="cs1" v-if="titleListLocal.some(i => i.title === 'cs1' && i.status)">
-              <template slot-scope="scope">
-                <el-button type="text" @click="handleDetails">{{ scope.row.cs1 }}</el-button>
-              </template>
-            </el-table-column>
-            <el-table-column prop="cs2" align="center" label="cs2" v-if="titleListLocal.some(i => i.title === 'cs2' && i.status)"></el-table-column>
-            <el-table-column prop="cs3" align="center" label="cs3" v-if="titleListLocal.some(i => i.title === 'cs3' && i.status)"></el-table-column>
-            <el-table-column prop="cs4" align="center" label="cs4" v-if="titleListLocal.some(i => i.title === 'cs4' && i.status)"></el-table-column>
-            <el-table-column prop="cs5" align="center" label="cs5" v-if="titleListLocal.some(i => i.title === 'cs5' && i.status)"></el-table-column>
           </el-table>
           <div class="page-center" v-if="tableData.length !== 0">
             <el-pagination
@@ -133,49 +132,87 @@ export default {
       loading: false,
       tableHeight: -50,
       totalRow: 1,
-      tableData: [
-        { cs1: 'G63251425412' },
-      ],
       selectTableData: null,
+      dateValue: null, // 时间控件
+      tableData: [
+        {
+          date: '2016-05-02',
+          name: '王小虎',
+          province: '上海',
+          city: '普陀区',
+          address: '上海市普陀区金沙江路 1518 弄',
+          zip: 200333,
+        },
+        {
+          date: '2016-05-04',
+          name: '王小虎',
+          province: '上海',
+          city: '普陀区',
+          address: '上海市普陀区金沙江路 1517 弄',
+          zip: 200333,
+        },
+        {
+          date: '2016-05-01',
+          name: '王小虎',
+          province: '上海',
+          city: '普陀区',
+          address: '上海市普陀区金沙江路 1519 弄',
+          zip: 200333,
+        },
+        {
+          date: '2016-05-03',
+          name: '王小虎',
+          province: '上海',
+          city: '普陀区',
+          address: '上海市普陀区金沙江路 1516 弄',
+          zip: 200333,
+        },
+      ],
       titleListLocal: [
         {
-          name: 'cs1',
-          title: 'cs1',
+          name: '日期',
+          title: '日期',
           status: true,
           isDisabled: true,
         },
         {
-          name: 'cs2',
-          title: 'cs2',
+          name: '姓名',
+          title: '姓名',
           status: true,
         },
         {
-          name: 'cs3',
-          title: 'cs3',
+          name: '省份',
+          title: '省份',
           status: true,
         },
         {
-          name: 'cs4',
-          title: 'cs4',
+          name: '市区',
+          title: '市区',
           status: true,
         },
         {
-          name: 'cs5',
-          title: 'cs5',
+          name: '邮编',
+          title: '邮编',
+          status: true,
+        },
+        {
+          name: '地址',
+          title: '地址',
+          status: true,
+        },
+        {
+          name: '操作',
+          title: '操作',
           status: true,
         },
       ],
       testList: [],
-      dateValue: null, // 时间控件
     };
   },
   computed: {
     tableTitle() {
       return `${this.$store.state.user.username}-${this.$store.path}`;
     },
-  },
-  created() {
-
   },
   methods: {
     switchType() {
