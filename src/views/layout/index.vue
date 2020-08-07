@@ -61,8 +61,14 @@ export default {
 <style lang="scss">
 @import '@/assets/base-styles/element-variables.scss';
 /** 全局基本样式 */
-.input-width {
+.small-input-width {
   width: 150px !important;
+}
+.middle-input-width {
+  width: 180px !important;
+}
+.large-input-width {
+  width: 220px !important;
 }
 .date-picker-width {
   width: 230px !important;

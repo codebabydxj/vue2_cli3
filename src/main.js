@@ -4,9 +4,8 @@ import App from './App';
 import router from './router';
 import store from './store';
 
-import 'element-ui/lib/theme-chalk/index.css';
-
 // 自定义样式
+import 'element-ui/lib/theme-chalk/index.css';
 // import '@/assets/element-theme-custom/index.css';
 import 'font-awesome/css/font-awesome.min.css';
 

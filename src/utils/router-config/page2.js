@@ -1,6 +1,7 @@
 import view from '@/views/layout/view';
 
 import page21 from '@/views/layout/page2/page2-1';
+import page21Details from '@/views/layout/page2/page2-1/page2-1-details';
 
 export default {
   classify: 'page2',
@@ -22,6 +23,10 @@ export default {
         {
           path: '',
           component: page21,
+        },
+        {
+          path: 'page2-1-details',
+          component: page21Details,
         },
       ],
     },

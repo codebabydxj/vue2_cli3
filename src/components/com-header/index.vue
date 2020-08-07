@@ -232,12 +232,14 @@ export default {
         // .then(() => {
         //   this.$store.commit('logout');
         //   this.$router.replace('/login');
+        //   window.location.reload();
         // }).catch(() => {
         // }).finally(() => {
         //   loading.close();
         // });
         this.$store.commit('logout');
         this.$router.replace('/login');
+        window.location.reload();
       }
       // 个人中心
       // 设置中心
