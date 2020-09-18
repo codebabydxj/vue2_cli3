@@ -99,7 +99,7 @@ npm run test:unit
 - 注释大于代码，越详细越好
 
 
-### 项目以来第三方框架/库
+### 项目使用第三方框架/库
 
 - 项目基本框架@vue
 
@@ -118,15 +118,28 @@ npm run test:unit
 - 图标库@font-awesome
 
 
-### git开发流程：
-
-- origin/develop：开发分支
-
-- origin/master：部署分支
+### git开发流程
 
 - origin/feature/***：新功能开发特性分支
 
+- origin/develop：本地发布分支
+
 - origin/alpha：测试发布分支
+
+- origin/base：基于master的分支，保护master分支正确性，上生产前过滤错误
+
+- origin/master：部署生产分支
+
+
+### 代码提交流程
+
+>  origin/feature/***  ->  develop
+
+>  origin/feature/***  ->  alpha
+
+>  origin/feature/***  ->  base
+
+> base -> master
 
 
 ### 参考资料
@@ -138,3 +151,7 @@ npm run test:unit
 - [vuex文档](https://vuex.vuejs.org/)
 
 - [element文档](https://element.eleme.io/#/zh-CN)
+
+- [MDN文档](https://developer.mozilla.org/zh-CN/)
+
+- [vue技术揭秘](https://ustbhuangyi.github.io/vue-analysis/)
