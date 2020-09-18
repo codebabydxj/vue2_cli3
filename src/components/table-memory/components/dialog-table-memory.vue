@@ -4,6 +4,7 @@
     title="表格列配置"
     :append-to-body="true"
     :visible="dialogShow"
+    :close-on-click-modal="false"
     :before-close="cancel">
     <el-row type="flex" justify="center">
       <el-table
