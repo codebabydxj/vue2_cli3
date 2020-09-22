@@ -7,16 +7,17 @@
  * 3. 如果进入到别的路由控制下的页面，要返回前一个页面 this.$openView('/a/b', true);  否则返回它自己的父级页面就不用带true
  *
  * 返回
- * 二级路由返回一级路由  this.$goBack = function() {
- * };();
+ * 二级路由返回一级路由  this.$goBack();
  *
  * 关闭路由
  * this.$closeView();
  *
  * 刷新
- * this.$refreshView = function() {
- * // 需要刷新的url
- * const fullPath = this.$route.};();
+ * this.$refreshView();
+ * 
+ * 需要刷新的url
+ * const fullPath = this.$route.fullPath;
+ * 
  */
 
 const MyNav = {};
