@@ -113,8 +113,10 @@
 
 <script>
 import { saveAs } from 'file-saver';
+
 import * as API from '@/utils/constants/api';
 import xlsDownload from '@/utils/xls-download';
+
 import tableMemory from '@/components/table-memory';
 
 export default {
