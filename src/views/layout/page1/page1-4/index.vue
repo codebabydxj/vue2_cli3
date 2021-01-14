@@ -98,7 +98,7 @@
             <el-table-column prop="city" align="center" label="市区" v-if="titleListLocal.some(i => i.title === '市区' && i.status)"></el-table-column>
             <el-table-column prop="address" align="center" label="地址" v-if="titleListLocal.some(i => i.title === '地址' && i.status)"></el-table-column>
             <el-table-column prop="zip" align="center" label="邮编" v-if="titleListLocal.some(i => i.title === '邮编' && i.status)"></el-table-column>
-            <el-table-column fixed="right" align="center" label="操作" v-if="titleListLocal.some(i => i.title === '操作' && i.status)">
+            <el-table-column align="center" label="操作" v-if="titleListLocal.some(i => i.title === '操作' && i.status)">
               <template>
                 <el-button type="text" size="mini">查看</el-button>
                 <el-button type="text" size="mini">编辑</el-button>
