@@ -6,7 +6,7 @@ import page21Details from '@/views/layout/page2/page2-1/page2-1-details';
 export default {
   classify: 'page2',
   key: 'page2',
-  title: 'page2',
+  title: '弹窗',
   icon: 'caret-right',
   access: true,
   routes: [

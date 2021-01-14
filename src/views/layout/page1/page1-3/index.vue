@@ -66,13 +66,16 @@
         </el-row>
         <el-row>
           <el-table
+            class="fixed-table"
             stripe
             border
+            recor
             size="mini"
             v-auto-height:tableHeight="-50"
             v-loading="loading"
             :data="tableData"
             :max-height="tableHeight"
+            :row-style="{height: '60px'}"
             @selection-change="handleSelectionChange">
             <div slot="empty">
               <div>
@@ -86,7 +89,24 @@
             <el-table-column prop="city" align="center" label="市区" v-if="titleListLocal.some(i => i.title === '市区' && i.status)"></el-table-column>
             <el-table-column prop="address" align="center" label="地址" v-if="titleListLocal.some(i => i.title === '地址' && i.status)"></el-table-column>
             <el-table-column prop="zip" align="center" label="邮编" v-if="titleListLocal.some(i => i.title === '邮编' && i.status)"></el-table-column>
-            <el-table-column fixed="right" align="center" label="操作" v-if="titleListLocal.some(i => i.title === '操作' && i.status)">
+            <el-table-column prop="phone" align="center" label="联系电话" v-if="titleListLocal.some(i => i.title === '联系电话' && i.status)"></el-table-column>
+            <el-table-column prop="cardId" align="center" label="身份证" v-if="titleListLocal.some(i => i.title === '邮编' && i.status)"></el-table-column>
+            <el-table-column prop="readStatus" align="center" label="是否已读" v-if="titleListLocal.some(i => i.title === '邮编' && i.status)"></el-table-column>
+            <el-table-column prop="readStatus" align="center" label="公司名称" v-if="titleListLocal.some(i => i.title === '邮编' && i.status)"></el-table-column>
+            <el-table-column prop="readStatus" align="center" label="账户类型" v-if="titleListLocal.some(i => i.title === '邮编' && i.status)"></el-table-column>
+            <el-table-column prop="readStatus" align="center" label="注册时间" v-if="titleListLocal.some(i => i.title === '邮编' && i.status)"></el-table-column>
+            <el-table-column prop="readStatus" align="center" label="注册来源" v-if="titleListLocal.some(i => i.title === '邮编' && i.status)"></el-table-column>
+            <el-table-column prop="readStatus" align="center" label="邮箱" v-if="titleListLocal.some(i => i.title === '邮编' && i.status)"></el-table-column>
+            <el-table-column prop="readStatus" align="center" label="邮件类型" v-if="titleListLocal.some(i => i.title === '邮编' && i.status)"></el-table-column>
+            <el-table-column prop="readStatus" align="center" label="邮件内容" v-if="titleListLocal.some(i => i.title === '邮编' && i.status)"></el-table-column>
+            <el-table-column prop="readStatus" align="center" label="邮件内容" v-if="titleListLocal.some(i => i.title === '邮编' && i.status)"></el-table-column>
+            <el-table-column prop="readStatus" align="center" label="邮件内容" v-if="titleListLocal.some(i => i.title === '邮编' && i.status)"></el-table-column>
+            <el-table-column prop="readStatus" align="center" label="邮件内容" v-if="titleListLocal.some(i => i.title === '邮编' && i.status)"></el-table-column>
+            <el-table-column prop="readStatus" align="center" label="邮件内容" v-if="titleListLocal.some(i => i.title === '邮编' && i.status)"></el-table-column>
+            <el-table-column prop="readStatus" align="center" label="邮件内容" v-if="titleListLocal.some(i => i.title === '邮编' && i.status)"></el-table-column>
+            <el-table-column prop="readStatus" align="center" label="邮件内容" v-if="titleListLocal.some(i => i.title === '邮编' && i.status)"></el-table-column>
+            <el-table-column prop="readStatus" align="center" label="邮件内容" v-if="titleListLocal.some(i => i.title === '邮编' && i.status)"></el-table-column>
+            <el-table-column fixed="right" width="200" align="center" label="操作" v-if="titleListLocal.some(i => i.title === '操作' && i.status)">
               <template>
                 <el-button type="text" size="mini">查看</el-button>
                 <el-button type="text" size="mini">编辑</el-button>
@@ -142,6 +162,9 @@ export default {
           city: '普陀区',
           address: '上海市普陀区金沙江路 1518 弄',
           zip: 200333,
+          phone: '135****8564',
+          cardId: '142322********4013',
+          readStatus: 'no',
         },
         {
           date: '2016-05-04',
@@ -150,6 +173,9 @@ export default {
           city: '普陀区',
           address: '上海市普陀区金沙江路 1517 弄',
           zip: 200333,
+          phone: '189****1564',
+          cardId: '142322********4013',
+          readStatus: 'no',
         },
         {
           date: '2016-05-01',
@@ -158,6 +184,9 @@ export default {
           city: '普陀区',
           address: '上海市普陀区金沙江路 1519 弄',
           zip: 200333,
+          phone: '188****4321',
+          cardId: '142328********402X',
+          readStatus: 'yes',
         },
         {
           date: '2016-05-03',
@@ -166,6 +195,9 @@ export default {
           city: '普陀区',
           address: '上海市普陀区金沙江路 1516 弄',
           zip: 200333,
+          phone: '175****6547',
+          cardId: '114251********5821',
+          readStatus: 'yes',
         },
       ],
       titleListLocal: [
@@ -191,13 +223,28 @@ export default {
           status: true,
         },
         {
+          name: '地址',
+          title: '地址',
+          status: true,
+        },
+        {
           name: '邮编',
           title: '邮编',
           status: true,
         },
         {
-          name: '地址',
-          title: '地址',
+          name: '联系电话',
+          title: '联系电话',
+          status: true,
+        },
+        {
+          name: '身份证',
+          title: '身份证',
+          status: true,
+        },
+        {
+          name: '是否已读',
+          title: '是否已读',
           status: true,
         },
         {
@@ -295,5 +342,10 @@ export default {
   .page-center {
     margin-top: 20px;
     text-align: center;
+  }
+</style>
+<style>
+  .fixed-table.el-table td {
+    border: none;
   }
 </style>
