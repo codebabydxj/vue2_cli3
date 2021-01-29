@@ -12,12 +12,12 @@ export default {
   routes: [
     {
       path: '/page2-1',
-      key: 'page2-1',
+      key: 'dialog集合',
       access: true,
       meta: {
         permission: {},
       },
-      title: 'page2-1',
+      title: 'dialog集合',
       component: view,
       children: [
         {
