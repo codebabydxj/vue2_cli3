@@ -5,15 +5,17 @@ module.exports = {
     sourceMap: false,
   },
   productionSourceMap: false,
+  outputDir: 'dist',
   assetsDir: 'static',
-  devServer: {
+  devServer: { // 设置代理
     // https: {
     //   key: fs.readFileSync('./ssl/yogi.com.key'),
     //   cert: fs.readFileSync('./ssl/yogi.com.crt'),
     // },
-    host: 'localhost',
-    port: 80,
-    open: true,
+    host: 'localhost', //ip地址
+    port: 80, //端口
+    open: true, //自动打开浏览器
+    hot: true, //热加载
     public: 'localhost',
   },
   configureWebpack: (config) => {

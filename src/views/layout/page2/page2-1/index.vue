@@ -47,10 +47,10 @@
         </el-row>
         <el-row>
           <el-col class="tar">
-            <el-button type="success" size="mini" @click="handleSuccess">success</el-button>
-            <el-button type="warning" size="mini" @click="handleWarning">warning</el-button>
-            <el-button type="primary" size="mini" @click="handlePrimary">primary</el-button>
-            <el-button type="danger" size="mini" @click="handleDanger">danger</el-button>
+            <el-button type="success" size="mini" @click="handleSuccess">输入新增</el-button>
+            <el-button type="warning" size="mini" @click="handleWarning">输入修改</el-button>
+            <el-button type="primary" size="mini" @click="handlePrimary">选择</el-button>
+            <el-button type="danger" size="mini" @click="handleDanger">提示</el-button>
             <el-button type="primary" size="mini" @click="exportData1">导出1</el-button>
             <el-button type="primary" size="mini" @click="exportData2">导出2</el-button>
           </el-col>
@@ -108,6 +108,11 @@
         </el-row>
       </el-col>
     </div>
+    <dialog-add
+      v-if="addShow"
+      :addShow="addShow"
+      @closeDialogCb="closeDialogCb">
+    </dialog-add>
   </flex-grow-row>
 </template>
 
@@ -119,9 +124,12 @@ import xlsDownload from '@/utils/xls-download';
 
 import tableMemory from '@/components/table-memory';
 
+import dialogAdd from './components/dialog-add';
+
 export default {
   components: {
     tableMemory,
+    dialogAdd,
   },
   data() {
     return {
@@ -169,6 +177,7 @@ export default {
       ],
       testList: [],
       dateValue: null, // 时间控件
+      addShow: false,
     };
   },
   computed: {
@@ -202,10 +211,26 @@ export default {
     resetsearchForm() {
       this.$refreshView();
     },
-    handleSuccess() {},
+    handleSuccess() {
+      this.addShow = true;
+    },
+    closeDialogCb(bool) {
+      this.addShow = false;
+      if (bool) {
+        this.getList();
+      }
+    },
     handleWarning() {},
     handlePrimary() {},
-    handleDanger() {},
+    handleDanger() {
+      this.$confirm('确认要删除吗？', '删除提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(() => {
+
+      });
+    },
     handleDetails() {
       this.$openView(`${this.$route.path}/page2-1-details`);
     },
