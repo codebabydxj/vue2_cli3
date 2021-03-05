@@ -2,7 +2,7 @@
 
 - node.js (8.9.0以上)
 
-- vue create project-name
+- vue create project-name（基于@vue/cli 创建）
 
 - 选择手动配置
 
