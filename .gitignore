@@ -1,6 +1,6 @@
 .DS_Store
 node_modules
-node_modules.zip
+node_modules.*
 package-lock.json
 /dist
 
