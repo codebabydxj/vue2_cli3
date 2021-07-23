@@ -1,10 +1,18 @@
-# vue-cli3 （脚手架）
+# vue-cli3 （@vue/cli脚手架）
 
-- node.js (8.9.0以上)
+- node.js (8.9.0以上) ---->(可升级npm：npm install -g npm)  ---->(可修改为淘宝镜像：npm config set registry "https://registry.npm.taobao.org")
 
-- vue create project-name（基于@vue/cli 创建）
+- npm install -g @vue/cli
+
+- vue create project-name (使用@vue/cli)
 
 - 选择手动配置
+
+- 全局配置可查看 （https://blog.csdn.net/qq_36517520/article/details/92441854）
+
+- 剩余就是自己配置一个依赖包， 根目录配置/gitignore/es-lint/babel/browsers/vue.config
+
+- 可以开始大展身手了
 
 ## Project setup
 ```
@@ -107,8 +115,6 @@ npm run test:unit
 
 - 状态管理器@vuex
 
-- 基本样式组件@element-ui
-
 - css初始化与浏览器一致性库@normalize.css
 
 - ajax请求@axios
@@ -126,6 +132,8 @@ npm run test:unit
 
 - origin/alpha：测试发布分支
 
+- origin/release：产品验收分支
+
 - origin/base：基于master的分支，保护master分支正确性，上生产前过滤错误
 
 - origin/master：部署生产分支
@@ -136,6 +144,8 @@ npm run test:unit
 >  origin/feature/***  ->  develop
 
 >  origin/feature/***  ->  alpha
+
+>  origin/feature/***  ->  release
 
 >  origin/feature/***  ->  base
 
