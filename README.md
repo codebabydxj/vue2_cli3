@@ -12,7 +12,9 @@
 
 - 剩余就是自己配置一个依赖包， 根目录配置/gitignore/es-lint/babel/browsers/vue.config
 
-- node-sass模块无法成功下载，并非python的版本问题，国内网络原因导致被墙，通过淘宝镜像下载node-sass模块（npm i --save-dev node-sass --sass_binary_site=https://npm.taobao.org/mirrors/node-sass/）
+- node-sass模块无法成功下载，并非python的版本问题，国内网络原因导致被墙，通过淘宝镜像下载node-sass模块（npm i --save-dev node-sass --sass_binary_site=https://npm.taobao.org/mirrors/node-sass/） 或者根目录下定义.npmrc文件设置node-sass下载方式
+
+- 主要node - npm - sass-loader - node-sass 版本关联，否则会启动报错 
 
 - 可以开始大展身手了
 
