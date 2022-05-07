@@ -1,4 +1,6 @@
 import Vue from 'vue';
+
+// 全局ele引入
 import ElementUI from 'element-ui';
 // 全局自定义指令
 import autoHeight from '@/utils/v-directive/auto-height';
