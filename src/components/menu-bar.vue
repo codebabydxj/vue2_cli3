@@ -161,7 +161,6 @@ nav.navbar-side .search-wrap .search-input {
   color: #edf2fc;
   font-size: 14px;
   background-color: transparent;
-  padding: 0 30px0 5px;
   border: none;
   outline: none;
 }
