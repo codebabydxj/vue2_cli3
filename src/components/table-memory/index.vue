@@ -44,7 +44,7 @@ export default {
       _localStorage.set(this.tableTitle, compatibleTitleList);
       this.$emit('title-change', compatibleTitleList);
     }
-    this.titleListClone = this.tableTitle;
+    this.titleListClone = this.titleList;
   },
   methods: {
     show() {
